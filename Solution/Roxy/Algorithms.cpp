@@ -1,7 +1,7 @@
 #include "Algorithms.h"
 
-// [getRandomString]:
-String getRandomString(size_t length)
+// [Roxy::getRandomString]:
+Roxy::String Roxy::getRandomString(size_t length)
 {
     TCHAR buff[] = {
         'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm',
@@ -16,4 +16,4 @@ String getRandomString(size_t length)
     }
     return str;
 }
-// [/getRandomString]
+// [/Roxy::getRandomString]

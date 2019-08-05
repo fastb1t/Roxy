@@ -1,23 +1,23 @@
 #include "Application.h"
 
-// [Application::Application]:
-Application::Application()
+// [Roxy::Application::Application]:
+Roxy::Application::Application()
 {
     srand(static_cast<size_t>(time(NULL)));
 }
-// [/Application::Application]
+// [/Roxy::Application::Application]
 
 
-// [Application::~Application]:
-Application::~Application()
+// [Roxy::Application::~Application]:
+Roxy::Application::~Application()
 {
 
 }
-// [/Application::~Application]
+// [/Roxy::Application::~Application]
 
 
-// [Application::execute]:
-int Application::execute()
+// [Roxy::Application::loop]:
+int Roxy::Application::loop()
 {
     MSG msg;
     BOOL bRet;
@@ -35,4 +35,4 @@ int Application::execute()
     }
     return (int)msg.wParam;
 }
-// [/Application::execute]
+// [/Roxy::Application::loop]

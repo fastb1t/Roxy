@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ROXY_APPLICATION_H_
+#define _ROXY_APPLICATION_H_
 
 #include <tchar.h>
 #include <ctime>
@@ -6,11 +7,15 @@
 
 #include "Algorithms.h"
 
-class Application {
+namespace Roxy {
+    class Application {
 
-public:
-    Application();
-    ~Application();
+    public:
+        Application();
+        ~Application();
 
-    int execute();
-};
+        int loop();
+    };
+}
+
+#endif

@@ -3,14 +3,14 @@
 // [DummyWindowProcedure]:
 static LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    Widget* widget = NULL;
+    Roxy::Widget* widget = NULL;
 
     if (message == WM_CREATE)
     {
         LPCREATESTRUCT lpcs = reinterpret_cast<LPCREATESTRUCT>(lParam);
         if (lpcs && lpcs->lpCreateParams)
         {
-            widget = reinterpret_cast<Widget*>(lpcs->lpCreateParams);
+            widget = reinterpret_cast<Roxy::Widget*>(lpcs->lpCreateParams);
             if (widget)
             {
                 SetWindowLongPtr(hWnd, GWL_USERDATA, (LONG_PTR)widget);
@@ -19,7 +19,7 @@ static LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wPa
         }
     }
 
-    widget = reinterpret_cast<Widget*>(GetWindowLongPtr(hWnd, GWL_USERDATA));
+    widget = reinterpret_cast<Roxy::Widget*>(GetWindowLongPtr(hWnd, GWL_USERDATA));
     if (widget)
     {
         widget->Process_ButtonPressed(hWnd, message, wParam, lParam);
@@ -30,8 +30,8 @@ static LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wPa
 // [/DummyWindowProcedure]
 
 
-// [Widget::Widget]:
-Widget::Widget(String title) :
+// [Roxy::Widget::Widget]:
+Roxy::Widget::Widget(String title) :
     hInstance(GetModuleHandle(NULL)),
     hWnd(NULL),
     point({ CW_USEDEFAULT, CW_USEDEFAULT }),
@@ -43,30 +43,30 @@ Widget::Widget(String title) :
 {
 
 }
-// [/Widget::Widget]
+// [/Roxy::Widget::Widget]
 
 
-// [Widget::~Widget]:
-Widget::~Widget()
+// [Roxy::Widget::~Widget]:
+Roxy::Widget::~Widget()
 {
     if (bWidnowClassIsRegistered)
     {
         UnregisterClass(window_class_name.c_str(), hInstance);
     }
 }
-// [/Widget::~Widget]
+// [/Roxy::Widget::~Widget]
 
 
-// [Widget::setWindowHandle]:
-void Widget::setWindowHandle(HWND handle)
+// [Roxy::Widget::setWindowHandle]:
+void Roxy::Widget::setWindowHandle(HWND handle)
 {
     hWnd = handle;
 }
-// [/Widget::setWindowHandle]
+// [/Roxy::Widget::setWindowHandle]
 
 
-// [Widget::WindowProcedure]:
-LRESULT Widget::WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+// [Roxy::Widget::WindowProcedure]:
+LRESULT Roxy::Widget::WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     std::map<UINT, MSG_PROC>::iterator it = msg_proc_map.find(message);
     if (it != msg_proc_map.end())
@@ -75,11 +75,11 @@ LRESULT Widget::WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
     }
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
-// [/Widget::WindowProcedure]
+// [/Roxy::Widget::WindowProcedure]
 
 
-// [Widget::Process_ButtonPressed]:
-void Widget::Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+// [Roxy::Widget::Process_ButtonPressed]:
+void Roxy::Widget::Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     if (message == WM_COMMAND)
     {
@@ -93,22 +93,22 @@ void Widget::Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARA
         }
     }
 }
-// [/Widget::Process_ButtonPressed]
+// [/Roxy::Widget::Process_ButtonPressed]
 
 
-// [Widget::addMsgProc]:
-void Widget::addMsgProc(UINT msg, MSG_PROC msgproc)
+// [Roxy::Widget::addMsgProc]:
+void Roxy::Widget::addMsgProc(UINT msg, MSG_PROC msgproc)
 {
     if (msgproc)
     {
         msg_proc_map.insert(std::make_pair(msg, msgproc));
     }
 }
-// [/Widget::addMsgProc]
+// [/Roxy::Widget::addMsgProc]
 
 
-// [Widget::createWindow]:
-bool Widget::createWindow()
+// [Roxy::Widget::createWindow]:
+bool Roxy::Widget::createWindow()
 {
     window_class_name = getRandomString(32 + rand() % 32);
 
@@ -157,44 +157,44 @@ bool Widget::createWindow()
     }
     return true;
 }
-// [/Widget::createWindow]
+// [/Roxy::Widget::createWindow]
 
 
-// [Widget::show]:
-void Widget::show()
+// [Roxy::Widget::show]:
+void Roxy::Widget::show()
 {
     ShowWindow(hWnd, SW_SHOW);
     UpdateWindow(hWnd);
 }
-// [/Widget::show]
+// [/Roxy::Widget::show]
 
 
-// [Widget::hide]:
-void Widget::hide()
+// [Roxy::Widget::hide]:
+void Roxy::Widget::hide()
 {
     ShowWindow(hWnd, SW_HIDE);
 }
-// [/Widget::hide]
+// [/Roxy::Widget::hide]
 
 
-// [Widget::maximize]:
-void Widget::maximize()
+// [Roxy::Widget::maximize]:
+void Roxy::Widget::maximize()
 {
     ShowWindow(hWnd, SW_MAXIMIZE);
 }
-// [/Widget::maximize]
+// [/Roxy::Widget::maximize]
 
 
-// [Widget::minimize]:
-void Widget::minimize()
+// [Roxy::Widget::minimize]:
+void Roxy::Widget::minimize()
 {
     ShowWindow(hWnd, SW_MINIMIZE);
 }
-// [/Widget::minimize]
+// [/Roxy::Widget::minimize]
 
 
-// [Widget::move]:
-void Widget::move(int x, int y)
+// [Roxy::Widget::move]:
+void Roxy::Widget::move(int x, int y)
 {
     if (IsWindow(hWnd))
     {
@@ -205,11 +205,11 @@ void Widget::move(int x, int y)
         point = { x, y };
     }
 }
-// [/Widget::move]
+// [/Roxy::Widget::move]
 
 
-// [Widget::resize]:
-void Widget::resize(int width, int height)
+// [Roxy::Widget::resize]:
+void Roxy::Widget::resize(int width, int height)
 {
     if (IsWindow(hWnd))
     {
@@ -220,11 +220,11 @@ void Widget::resize(int width, int height)
         size = { width, height };
     }
 }
-// [/Widget::resize]
+// [/Roxy::Widget::resize]
 
 
-// [Widget::setGeometry]:
-void Widget::setGeometry(int x, int y, int width, int height)
+// [Roxy::Widget::setGeometry]:
+void Roxy::Widget::setGeometry(int x, int y, int width, int height)
 {
     if (IsWindow(hWnd))
     {
@@ -236,11 +236,11 @@ void Widget::setGeometry(int x, int y, int width, int height)
         size = { width, height };
     }
 }
-// [/Widget::setGeometry]
+// [/Roxy::Widget::setGeometry]
 
 
-// [Widget::centralizePosition]:
-void Widget::centralizePosition()
+// [Roxy::Widget::centralizePosition]:
+void Roxy::Widget::centralizePosition()
 {
     if (IsWindow(hWnd))
     {
@@ -268,11 +268,11 @@ void Widget::centralizePosition()
         };
     }
 }
-// [/Widget::centralizePosition]
+// [/Roxy::Widget::centralizePosition]
 
 
-// [Widget::addPushButton]:
-bool Widget::addPushButton(String title, int x, int y, int width, int height, int id, BTN_PRESSED_PROC proc)
+// [Roxy::Widget::addPushButton]:
+bool Roxy::Widget::addPushButton(String title, int x, int y, int width, int height, int id, BTN_PRESSED_PROC proc)
 {
     HWND hButton = CreateWindowEx(0, _T("button"), title.c_str(), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, x, y, width, height, hWnd, (HMENU)id, NULL, NULL);
     if (hButton)
@@ -281,12 +281,12 @@ bool Widget::addPushButton(String title, int x, int y, int width, int height, in
     }
     return hButton != NULL;
 }
-// [/Widget::addPushButton]
+// [/Roxy::Widget::addPushButton]
 
 
-// [GetWidget]:
-Widget* GetWidget(HWND hWnd)
+// [Roxy::GetWidget]:
+Roxy::Widget* Roxy::GetWidget(HWND hWnd)
 {
     return reinterpret_cast<Widget*>(GetWindowLongPtr(hWnd, GWL_USERDATA));
 }
-// [/GetWidget]
+// [/Roxy::GetWidget]

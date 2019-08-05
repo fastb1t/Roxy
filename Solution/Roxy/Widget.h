@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ROXY_WIDGET_H_
+#define _ROXY_WIDGET_H_
 
 #include <tchar.h>
 #include <map>
@@ -6,60 +7,64 @@
 
 #include "Algorithms.h"
 
-class Widget;
+namespace Roxy {
+    class Widget;
 
-typedef LRESULT(*MSG_PROC)(HWND, WPARAM, LPARAM);
-typedef void(*BTN_PRESSED_PROC)(Widget*);
+    typedef LRESULT(*MSG_PROC)(HWND, WPARAM, LPARAM);
+    typedef void(*BTN_PRESSED_PROC)(Widget*);
 
-class Widget {
-    HINSTANCE hInstance;
-    HWND hWnd;
+    class Widget {
+        HINSTANCE hInstance;
+        HWND hWnd;
 
-    POINT point;
-    SIZE size;
+        POINT point;
+        SIZE size;
 
-    String window_title;
-    String window_class_name;
+        String window_title;
+        String window_class_name;
 
-    bool bWidnowClassIsRegistered;
+        bool bWidnowClassIsRegistered;
 
-    std::map<UINT, MSG_PROC> msg_proc_map;
-    std::map<int, BTN_PRESSED_PROC> buttons;
+        std::map<UINT, MSG_PROC> msg_proc_map;
+        std::map<int, BTN_PRESSED_PROC> buttons;
 
-    String error;
+        String error;
 
-public:
-    Widget(String title = _T("Window"));
+    public:
+        Widget(String title = _T("Window"));
 
-    ~Widget();
+        ~Widget();
 
-    void setWindowHandle(HWND handle);
+        void setWindowHandle(HWND handle);
 
-    LRESULT WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-    void Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-    void addMsgProc(UINT, MSG_PROC);
+        LRESULT WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+        void Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+        void addMsgProc(UINT, MSG_PROC);
 
-    bool createWindow();
+        bool createWindow();
 
-    void show();
-    void hide();
-    void maximize();
-    void minimize();
+        void show();
+        void hide();
+        void maximize();
+        void minimize();
 
-    void move(int x, int y);
-    void resize(int width, int height);
-    void setGeometry(int x, int y, int width, int height);
-    void centralizePosition();
+        void move(int x, int y);
+        void resize(int width, int height);
+        void setGeometry(int x, int y, int width, int height);
+        void centralizePosition();
 
-    bool addPushButton(String title, int x, int y, int width, int height, int id, BTN_PRESSED_PROC proc = NULL);
+        bool addPushButton(String title, int x, int y, int width, int height, int id, BTN_PRESSED_PROC proc = NULL);
 
-    void messageBox(String msg, String title, UINT uType)
-    {
-        MessageBox(hWnd, msg.c_str(), title.c_str(), uType);
-    }
+        void messageBox(String msg, String title, UINT uType)
+        {
+            MessageBox(hWnd, msg.c_str(), title.c_str(), uType);
+        }
 
-    //friend class Application;
-    //friend LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-};
+        //friend class Application;
+        //friend LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+    };
 
-Widget* GetWidget(HWND hWnd);
+    Widget* GetWidget(HWND hWnd);
+}
+
+#endif

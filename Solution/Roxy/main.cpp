@@ -7,26 +7,26 @@
 // DispathcMessageA - https://doxygen.reactos.org/d4/d8c/win32ss_2user_2user32_2windows_2message_8c.html#a9858a588c2ee36f8f0e181a6843cbba4
 // DummyWindowProcedure - http://www.cyberforum.ru/win-api/thread1074072.html
 
-void btn_pressed(Widget* widget)
+void btn_pressed(Roxy::Widget* widget)
 {
     // BTN_PRESSED_PROC pressed = [](Widget *widget2) -> void
     // BTN_PRESSED_PROC pressed = [](Widget *widget2)
     // auto pressed = [](Widget *widget2) -> void
-    auto pressed = [](Widget* widget2)
+    auto pressed = [](Roxy::Widget* widget2)
     {
         widget2->messageBox(_T("Message #1"), _T("Title"), MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
     };
 
     widget->addPushButton(_T("button #4"), 10, 100, 100, 20, 1001, pressed);
 
-    widget->addPushButton(_T("button #5"), 10, 130, 100, 20, 1002, [](Widget* widget2) {
+    widget->addPushButton(_T("button #5"), 10, 130, 100, 20, 1002, [](Roxy::Widget* widget2) {
         widget2->messageBox(_T("Message #2"), _T("Title"), MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
     });
 }
 
 LRESULT OnCreate(HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
-    Widget* widget = GetWidget(hWnd);
+    Roxy::Widget* widget = Roxy::GetWidget(hWnd);
     if (widget)
     {
         widget->addPushButton(_T("Button #1"), 10, 10, 100, 20, 1000, btn_pressed);
@@ -53,9 +53,10 @@ LRESULT OnDestroy(HWND hWnd, WPARAM wParam, LPARAM lParam)
 
 int main(int argc, char* argv[])
 {
-    Application app;
+    Roxy::Application app;
 
-    Widget widget1;
+    Roxy::Widget widget1;
+
     widget1.setGeometry(10, 10, 400, 300);
 
     widget1.addMsgProc(WM_CREATE, OnCreate);
@@ -65,7 +66,8 @@ int main(int argc, char* argv[])
     widget1.createWindow();
     widget1.show();
 
-    Widget widget2(_T("Widget #2"));
+    Roxy::Widget widget2(_T("Widget #2"));
+
     widget2.setGeometry(420, 10, 400, 300);
 
     widget2.addMsgProc(WM_CREATE, OnCreate);
@@ -74,5 +76,5 @@ int main(int argc, char* argv[])
     widget2.createWindow();
     widget2.show();
 
-    return app.execute();
+    return app.loop();
 }

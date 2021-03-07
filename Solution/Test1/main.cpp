@@ -1,5 +1,7 @@
-#include "Roxy/Application.h"
-#include "Roxy/Window.h"
+#include "../Roxy/Roxy/Application.h"
+#include "../Roxy/Roxy/Window.h"
+
+#pragma comment(lib, "../Debug/Roxy.lib")
 
 // TranslateMessage - https://doxygen.reactos.org/d4/d8c/win32ss_2user_2user32_2windows_2message_8c.html#a601d5db3c8d8100630fe50b98b0451d0
 // TranslateMessageEx - https://doxygen.reactos.org/d4/d8c/win32ss_2user_2user32_2windows_2message_8c.html#ada18e6199f2f59ad0b6f8379ebb10bb9
@@ -21,7 +23,7 @@ void btn_pressed(Roxy::Window* window)
 
     window->addPushButton(_T("button #5"), 10, 130, 100, 20, 1002, [](Roxy::Window* window2) {
         window2->messageBox(_T("Message #2"), _T("Title"), MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
-    });
+        });
 }
 
 LRESULT OnCreate(HWND hWnd, WPARAM wParam, LPARAM lParam)

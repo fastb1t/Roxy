@@ -7,14 +7,14 @@
 namespace Roxy {
 
     template<typename T>
-    class Enumarator {
+    class Enumerator {
         std::vector<T> m_data;
         size_t m_current;
 
     public:
-        Enumarator() : m_current(0) {}
+        Enumerator() : m_current(0) {}
 
-        ~Enumarator() {
+        ~Enumerator() {
             Clear();
         }
 
@@ -28,16 +28,14 @@ namespace Roxy {
         }
         
         void Next() {
-            if (m_data.size() == 0)
-            {
+            if (m_data.size() == 0) {
                 m_current = 0;
                 return;
             }
 
             m_current++;
 
-            if (m_current >= m_data.size())
-            {
+            if (m_current >= m_data.size()) {
                 m_current = 0;
             }
         }
@@ -53,15 +51,14 @@ namespace Roxy {
         }
 
         T Get() {
-            if (m_data.size() == 0 || m_current >= m_data.size())
-            {
-                T t;
-                return t;
+            if (m_data.size() == 0 || m_current >= m_data.size()) {
+                return T(0);
             }
 
             return m_data[m_current];
         }
     };
+
 }
 
 #endif

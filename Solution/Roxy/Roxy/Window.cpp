@@ -31,17 +31,46 @@ static LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wPa
 
 
 // [Roxy::Window::Window]:
-Roxy::Window::Window(String sTitle) :
-    m_hInstance(GetModuleHandle(NULL)),
+Roxy::Window::Window(String sTitle, HINSTANCE hInstance) :
     m_hWnd(NULL),
     m_point({ CW_USEDEFAULT, CW_USEDEFAULT }),
     m_size({ 700, 500 }),
-    m_sWindowTitle(sTitle),
-    m_sWindowClassName(_T("")),
-    m_bWidnowClassIsRegistered(false),
-    m_sError(_T(""))
+    m_sWindowTitle(sTitle)
 {
+    m_sWindowClassName = GetRandomString(32 + rand() % 32);
 
+    if (!hInstance)
+    {
+        m_hInstance = GetModuleHandle(NULL);
+    }
+
+
+    WNDCLASSEX wcex;
+    memset(&wcex, 0, sizeof(WNDCLASSEX));
+
+    wcex.cbSize = sizeof(WNDCLASSEX);
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc = DummyWindowProcedure;
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = 0;
+    wcex.hInstance = m_hInstance;
+    wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.lpszMenuName = NULL;
+    wcex.lpszClassName = m_sWindowClassName.c_str();
+    wcex.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+
+    if (!RegisterClassEx(&wcex))
+    {
+        m_bWidnowClassIsRegistered = false;
+
+        m_sError = _T("Window Registration Failed.");
+    }
+    else
+    {
+        m_bWidnowClassIsRegistered = true;
+    }
 }
 // [/Roxy::Window::Window]
 
@@ -115,35 +144,9 @@ void Roxy::Window::addMsgProc(UINT msg, MSG_PROC msgproc)
 // [/Roxy::Window::addMsgProc]
 
 
-// [Roxy::Window::createWindow]:
-bool Roxy::Window::createWindow()
+// [Roxy::Window::create]:
+bool Roxy::Window::create()
 {
-    m_sWindowClassName = getRandomString(32 + rand() % 32);
-
-    if (m_bWidnowClassIsRegistered == false)
-    {
-        WNDCLASSEX wcex;
-        wcex.cbSize = sizeof(WNDCLASSEX);
-        wcex.style = CS_HREDRAW | CS_VREDRAW;
-        wcex.lpfnWndProc = DummyWindowProcedure;
-        wcex.cbClsExtra = 0;
-        wcex.cbWndExtra = 0;
-        wcex.hInstance = m_hInstance;
-        wcex.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-        wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-        wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-        wcex.lpszMenuName = NULL;
-        wcex.lpszClassName = m_sWindowClassName.c_str();
-        wcex.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-
-        if (!RegisterClassEx(&wcex))
-        {
-            m_sError = _T("Window Registration Failed.");
-            return false;
-        }
-        m_bWidnowClassIsRegistered = true;
-    }
-
     m_hWnd = CreateWindowEx(
         WS_EX_APPWINDOW,
         m_sWindowClassName.c_str(),
@@ -165,7 +168,7 @@ bool Roxy::Window::createWindow()
     }
     return true;
 }
-// [/Roxy::Window::createWindow]
+// [/Roxy::Window::create]
 
 
 // [Roxy::Window::show]:

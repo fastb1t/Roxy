@@ -31,7 +31,7 @@ namespace Roxy {
         String m_sError;
 
     public:
-        Window(String sTitle = _T("Window"));
+        Window(String sTitle = _T("Window"), HINSTANCE hInstance = NULL);
 
         ~Window();
 
@@ -42,7 +42,7 @@ namespace Roxy {
         void Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
         void addMsgProc(UINT, MSG_PROC);
 
-        bool createWindow();
+        bool create();
 
         void show();
         void hide();
@@ -60,9 +60,6 @@ namespace Roxy {
         {
             MessageBox(m_hWnd, msg.c_str(), title.c_str(), uType);
         }
-
-        //friend class Application;
-        //friend LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
     };
 
     Window* GetWindowPtrFromHandle(HWND hWnd);

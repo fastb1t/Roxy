@@ -1,5 +1,8 @@
 #include "../Roxy/Roxy/Application.h"
 #include "../Roxy/Roxy/Window.h"
+#include "../Roxy/Roxy/Enumerator.h"
+
+#include <iostream>
 
 #pragma comment(lib, "../Debug/Roxy.lib")
 
@@ -65,7 +68,7 @@ int main(int argc, char* argv[])
     window1.addMsgProc(WM_PAINT, OnPaint);
     window1.addMsgProc(WM_DESTROY, OnDestroy);
 
-    window1.createWindow();
+    window1.create();
     window1.show();
 
     Roxy::Window window2(_T("Widget #2"));
@@ -75,7 +78,7 @@ int main(int argc, char* argv[])
     window2.addMsgProc(WM_CREATE, OnCreate);
     window2.addMsgProc(WM_DESTROY, OnDestroy);
 
-    window2.createWindow();
+    window2.create();
     window2.show();
 
     return app.loop();

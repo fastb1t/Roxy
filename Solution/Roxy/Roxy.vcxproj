@@ -69,7 +69,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -127,15 +138,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Algorithms.cpp" />
-    <ClCompile Include="Application.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="Roxy\Algorithms.cpp" />
+    <ClCompile Include="Roxy\Application.cpp" />
+    <ClCompile Include="Roxy\Surface.cpp" />
+    <ClCompile Include="Roxy\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Algorithms.h" />
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="Widget.h" />
+    <ClInclude Include="Roxy\Algorithms.h" />
+    <ClInclude Include="Roxy\Application.h" />
+    <ClInclude Include="Roxy\Enumerator.h" />
+    <ClInclude Include="Roxy\Surface.h" />
+    <ClInclude Include="Roxy\Types.h" />
+    <ClInclude Include="Roxy\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

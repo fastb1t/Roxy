@@ -1,5 +1,5 @@
-#include "Application.h"
-#include "Widget.h"
+#include "Roxy/Application.h"
+#include "Roxy/Window.h"
 
 // TranslateMessage - https://doxygen.reactos.org/d4/d8c/win32ss_2user_2user32_2windows_2message_8c.html#a601d5db3c8d8100630fe50b98b0451d0
 // TranslateMessageEx - https://doxygen.reactos.org/d4/d8c/win32ss_2user_2user32_2windows_2message_8c.html#ada18e6199f2f59ad0b6f8379ebb10bb9
@@ -7,31 +7,31 @@
 // DispathcMessageA - https://doxygen.reactos.org/d4/d8c/win32ss_2user_2user32_2windows_2message_8c.html#a9858a588c2ee36f8f0e181a6843cbba4
 // DummyWindowProcedure - http://www.cyberforum.ru/win-api/thread1074072.html
 
-void btn_pressed(Roxy::Widget* widget)
+void btn_pressed(Roxy::Window* window)
 {
     // BTN_PRESSED_PROC pressed = [](Widget *widget2) -> void
     // BTN_PRESSED_PROC pressed = [](Widget *widget2)
     // auto pressed = [](Widget *widget2) -> void
-    auto pressed = [](Roxy::Widget* widget2)
+    auto pressed = [](Roxy::Window* window2)
     {
-        widget2->messageBox(_T("Message #1"), _T("Title"), MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
+        window2->messageBox(_T("Message #1"), _T("Title"), MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
     };
 
-    widget->addPushButton(_T("button #4"), 10, 100, 100, 20, 1001, pressed);
+    window->addPushButton(_T("button #4"), 10, 100, 100, 20, 1001, pressed);
 
-    widget->addPushButton(_T("button #5"), 10, 130, 100, 20, 1002, [](Roxy::Widget* widget2) {
-        widget2->messageBox(_T("Message #2"), _T("Title"), MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
+    window->addPushButton(_T("button #5"), 10, 130, 100, 20, 1002, [](Roxy::Window* window2) {
+        window2->messageBox(_T("Message #2"), _T("Title"), MB_OK | MB_ICONINFORMATION | MB_TOPMOST);
     });
 }
 
 LRESULT OnCreate(HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
-    Roxy::Widget* widget = Roxy::GetWidget(hWnd);
-    if (widget)
+    Roxy::Window* window = Roxy::GetWindowPtrFromHandle(hWnd);
+    if (window)
     {
-        widget->addPushButton(_T("Button #1"), 10, 10, 100, 20, 1000, btn_pressed);
-        widget->addPushButton(_T("Button #2"), 10, 40, 100, 20, -1);
-        widget->addPushButton(_T("Button #3"), 10, 70, 100, 20, -1);
+        window->addPushButton(_T("Button #1"), 10, 10, 100, 20, 1000, btn_pressed);
+        window->addPushButton(_T("Button #2"), 10, 40, 100, 20, -1);
+        window->addPushButton(_T("Button #3"), 10, 70, 100, 20, -1);
     }
     return TRUE;
 }
@@ -55,26 +55,26 @@ int main(int argc, char* argv[])
 {
     Roxy::Application app;
 
-    Roxy::Widget widget1;
+    Roxy::Window window1;
 
-    widget1.setGeometry(10, 10, 400, 300);
+    window1.setGeometry(10, 10, 400, 300);
 
-    widget1.addMsgProc(WM_CREATE, OnCreate);
-    widget1.addMsgProc(WM_PAINT, OnPaint);
-    widget1.addMsgProc(WM_DESTROY, OnDestroy);
+    window1.addMsgProc(WM_CREATE, OnCreate);
+    window1.addMsgProc(WM_PAINT, OnPaint);
+    window1.addMsgProc(WM_DESTROY, OnDestroy);
 
-    widget1.createWindow();
-    widget1.show();
+    window1.createWindow();
+    window1.show();
 
-    Roxy::Widget widget2(_T("Widget #2"));
+    Roxy::Window window2(_T("Widget #2"));
 
-    widget2.setGeometry(420, 10, 400, 300);
+    window2.setGeometry(420, 10, 400, 300);
 
-    widget2.addMsgProc(WM_CREATE, OnCreate);
-    widget2.addMsgProc(WM_DESTROY, OnDestroy);
+    window2.addMsgProc(WM_CREATE, OnCreate);
+    window2.addMsgProc(WM_DESTROY, OnDestroy);
 
-    widget2.createWindow();
-    widget2.show();
+    window2.createWindow();
+    window2.show();
 
     return app.loop();
 }

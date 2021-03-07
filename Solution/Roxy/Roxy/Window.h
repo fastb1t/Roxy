@@ -8,34 +8,35 @@
 #include "Algorithms.h"
 
 namespace Roxy {
-    class Widget;
+    class Window;
 
     typedef LRESULT(*MSG_PROC)(HWND, WPARAM, LPARAM);
-    typedef void(*BTN_PRESSED_PROC)(Widget*);
+    typedef void(*BTN_PRESSED_PROC)(Window*);
 
-    class Widget {
-        HINSTANCE hInstance;
-        HWND hWnd;
+    class Window {
+        HINSTANCE m_hInstance;
+        HWND m_hWnd;
 
-        POINT point;
-        SIZE size;
+        POINT m_point;
+        SIZE m_size;
 
-        String window_title;
-        String window_class_name;
+        String m_sWindowTitle;
+        String m_sWindowClassName;
 
-        bool bWidnowClassIsRegistered;
+        bool m_bWidnowClassIsRegistered;
 
-        std::map<UINT, MSG_PROC> msg_proc_map;
-        std::map<int, BTN_PRESSED_PROC> buttons;
+        std::map<UINT, MSG_PROC> m_msg_proc_map;
+        std::map<int, BTN_PRESSED_PROC> m_buttons;
 
-        String error;
+        String m_sError;
 
     public:
-        Widget(String title = _T("Window"));
+        Window(String sTitle = _T("Window"));
 
-        ~Widget();
+        ~Window();
 
-        void setWindowHandle(HWND handle);
+        void setInstanceHandle(HINSTANCE hInstance);
+        void setWindowHandle(HWND hWnd);
 
         LRESULT WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
         void Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -57,14 +58,14 @@ namespace Roxy {
 
         void messageBox(String msg, String title, UINT uType)
         {
-            MessageBox(hWnd, msg.c_str(), title.c_str(), uType);
+            MessageBox(m_hWnd, msg.c_str(), title.c_str(), uType);
         }
 
         //friend class Application;
         //friend LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
     };
 
-    Widget* GetWidget(HWND hWnd);
+    Window* GetWindowPtrFromHandle(HWND hWnd);
 }
 
 #endif

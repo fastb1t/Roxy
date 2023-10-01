@@ -6,108 +6,6 @@
 #pragma comment(lib, "shlwapi.lib")
 
 
-// [Roxy::GetRandomString]:
-Roxy::String Roxy::GetRandomString(size_t length)
-{
-    String str;
-
-    String base = _T("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_");
-
-    while (length--)
-    {
-        str += base[rand() % base.length()];
-    }
-
-    return str;
-}
-// [/Roxy::GetRandomString]
-
-
-// [Roxy::TextHasNumber]:
-bool Roxy::TextHasNumber(const String& sText)
-{
-    if (sText.length() > 0)
-    {
-        if (sText[0] == '0')
-        {
-            return false;
-        }
-
-        return sText.find_first_not_of(_T("0123456789")) == std::string::npos;
-    }
-    return false;
-}
-// [/Roxy::TextHasNumber]
-
-
-// [Roxy::GetFileNameFromPath]:
-Roxy::String Roxy::GetFileNameFromPath(const String& sPath)
-{
-    String str;
-
-    return str;
-}
-// [/Roxy::GetFileNameFromPath]
-
-
-// [Roxy::RemoveFileNameFromPath]:
-Roxy::String Roxy::RemoveFileNameFromPath(const String& sPath)
-{
-    String str;
-
-    return str;
-}
-// [/Roxy::RemoveFileNameFromPath]
-
-
-// [Roxy::GetPathFromPath]:
-Roxy::String Roxy::GetPathFromPath(const String& sPath)
-{
-    String str;
-
-    return str;
-}
-// [/Roxy::GetPathFromPath]
-
-
-// [Roxy::RemovePathFromPath]:
-Roxy::String Roxy::RemovePathFromPath(const String& sPath)
-{
-    String str;
-
-    return str;
-}
-// [/Roxy::RemovePathFromPath]
-
-
-//// [Roxy::GetFileExtension]:
-//Roxy::String Roxy::GetFileExtension(const String& sFileName)
-//{
-//    String str;
-//
-//    return str;
-//}
-//// [/Roxy::GetFileExtension]
-
-
-// [Roxy::RemoveFileExtension]:
-Roxy::String Roxy::RemoveFileExtension(const String& sFileName)
-{
-    char* lpszStr = PathFindExtension(sFileName.c_str());
-    return (lpszStr == nullptr ? "" : lpszStr);
-
-    String str;
-
-    return str;
-}
-// [/Roxy::RemoveFileExtension]
-
-
-
-
-
-
-
 // [Roxy::GetInstancePathA]:
 std::string Roxy::GetInstancePathA(HINSTANCE hInstance)
 {
@@ -286,6 +184,38 @@ bool Roxy::DirExistsW(const std::wstring& sDirName)
 // [/Roxy::DirExistsW]
 
 
+// [Roxy::GetFileNameFromPathA]:
+std::string Roxy::GetFileNameFromPathA(const std::string& sPath)
+{
+
+}
+// [/Roxy::GetFileNameFromPathA]
+
+
+// [Roxy::RemoveFileNameFromPathW]:
+std::wstring Roxy::RemoveFileNameFromPathW(const std::wstring& sPath)
+{
+
+}
+// [/Roxy::RemoveFileNameFromPathW]
+
+
+// [Roxy::GetPathFromPathA]:
+std::string Roxy::GetPathFromPathA(const std::string& sPath)
+{
+
+}
+// [/Roxy::GetPathFromPathA]
+
+
+// [Roxy::RemovePathFromPathW]:
+std::wstring Roxy::RemovePathFromPathW(const std::wstring& sPath)
+{
+
+}
+// [/Roxy::RemovePathFromPathW]
+
+
 // [Roxy::GetFileExtensionA]:
 std::string Roxy::GetFileExtensionA(const std::string& sFileName)
 {
@@ -302,6 +232,22 @@ std::wstring Roxy::GetFileExtensionW(const std::wstring& sFileName)
     return (lpszStr == nullptr ? L"" : lpszStr);
 }
 // [/Roxy::GetFileExtensionW]
+
+
+// [Roxy::RemoveFileExtensionA]:
+std::string Roxy::RemoveFileExtensionA(const std::string& sFileName)
+{
+
+}
+// [/Roxy::RemoveFileExtensionA]
+
+
+// [Roxy::RemoveFileExtensionW]:
+std::wstring Roxy::RemoveFileExtensionW(const std::wstring& sFileName)
+{
+
+}
+// [/Roxy::RemoveFileExtensionW]
 
 
 // [Roxy::GetTextFromEditA]:
@@ -364,8 +310,8 @@ std::wstring Roxy::GetTextFromEditW(HWND hEdit)
 // [/Roxy::GetTextFromEditW]
 
 
-// [Roxy::TextIsNumberA]:
-bool Roxy::TextIsNumberA(const std::string sText)
+// [Roxy::TextHasNumberA]:
+bool Roxy::TextHasNumberA(const std::string sText)
 {
     if (sText.length() > 0)
     {
@@ -378,11 +324,11 @@ bool Roxy::TextIsNumberA(const std::string sText)
     }
     return false;
 }
-// [/Roxy::TextIsNumberA]
+// [/Roxy::TextHasNumberA]
 
 
-// [Roxy::TextIsNumberW]:
-bool Roxy::TextIsNumberW(const std::wstring sText)
+// [Roxy::TextHasNumberW]:
+bool Roxy::TextHasNumberW(const std::wstring sText)
 {
     if (sText.length() > 0)
     {
@@ -395,7 +341,7 @@ bool Roxy::TextIsNumberW(const std::wstring sText)
     }
     return false;
 }
-// [/Roxy::TextIsNumberW]
+// [/Roxy::TextHasNumberW]
 
 
 // [Roxy::StringToWstring]:
@@ -408,3 +354,37 @@ std::wstring Roxy::StringToWstring(const std::string& input, DWORD locale)
     return output;
 }
 // [/Roxy::StringToWstring]
+
+
+// [Roxy::GetRandomStringA]:
+std::string Roxy::GetRandomStringA(size_t length)
+{
+    std::string str;
+
+    std::string base = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+    while (length--)
+    {
+        str += base[rand() % base.length()];
+    }
+
+    return str;
+}
+// [/Roxy::GetRandomStringA]
+
+
+// [Roxy::GetRandomStringW]:
+std::wstring Roxy::GetRandomStringW(size_t length)
+{
+    std::wstring str;
+
+    std::wstring base = L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+    while (length--)
+    {
+        str += base[rand() % base.length()];
+    }
+
+    return str;
+}
+// [/Roxy::GetRandomStringW]

@@ -7,22 +7,6 @@
 
 namespace Roxy {
 
-    String GetRandomString(size_t length = 6);
-
-
-    bool TextHasNumber(const String& sText);
-
-    String GetFileNameFromPath(const String& sPath);
-    String RemoveFileNameFromPath(const String& sPath);
-
-    String GetPathFromPath(const String& sPath);
-    String RemovePathFromPath(const String& sPath);
-
-    //String GetFileExtension(const String& sFileName);
-    String RemoveFileExtension(const String& sFileName);
-
-
-
     std::string GetInstancePathA(HINSTANCE hInstance);
     std::wstring GetInstancePathW(HINSTANCE hInstance);
 
@@ -35,14 +19,28 @@ namespace Roxy {
     bool DirExistsA(const std::string& sDirName);
     bool DirExistsW(const std::wstring& sDirName);
 
+    std::string GetFileNameFromPathA(const std::string& sPath);
+    std::wstring RemoveFileNameFromPathW(const std::wstring& sPath);
+
+    std::string GetPathFromPathA(const std::string& sPath);
+    std::wstring RemovePathFromPathW(const std::wstring& sPath);
+
     std::string GetFileExtensionA(const std::string& sFileName);
     std::wstring GetFileExtensionW(const std::wstring& sFileName);
+
+    std::string RemoveFileExtensionA(const std::string& sFileName);
+    std::wstring RemoveFileExtensionW(const std::wstring& sFileName);
+
 
     std::string GetTextFromEditA(HWND hEdit);
     std::wstring GetTextFromEditW(HWND hEdit);
 
-    bool TextIsNumberA(const std::string sText);
-    bool TextIsNumberW(const std::wstring sText);
+    bool TextHasNumberA(const std::string sText);
+    bool TextHasNumberW(const std::wstring sText);
+
+    std::string GetRandomStringA(size_t length = 6);
+    std::wstring GetRandomStringW(size_t length = 6);
+
 
     std::wstring StringToWstring(const std::string& input, DWORD locale = CP_ACP);
 
@@ -51,17 +49,27 @@ namespace Roxy {
 #define BuildPath BuildPathW
 #define FileExists FileExistsW
 #define DirExists DirExistsW
+#define GetFileNameFromPath GetFileNameFromPathW
+#define GetPathFromPath GetPathFromPathW
 #define GetFileExtension GetFileExtensionW
+#define RemoveFileExtension RemoveFileExtensionW
+
 #define GetTextFromEdit GetTextFromEditW
-#define TextIsNumber TextIsNumberW
+#define TextHasNumber TextHasNumberW
+#define GetRandomString GetRandomStringW
 #else
 #define GetInstancePath GetInstancePathA
 #define BuildPath BuildPathA
 #define FileExists FileExistsA
 #define DirExists DirExistsA
+#define GetFileNameFromPath GetFileNameFromPathA
+#define GetPathFromPath GetPathFromPathA
 #define GetFileExtension GetFileExtensionA
+#define RemoveFileExtension RemoveFileExtensionA
+
 #define GetTextFromEdit GetTextFromEditA
-#define TextIsNumber TextIsNumberA
+#define TexHassNumber TextHasNumberA
+#define GetRandomString GetRandomStringA
 #endif
 
 }

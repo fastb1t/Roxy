@@ -5,6 +5,6 @@
 
 #ifndef ROXY_VERSION
 #define ROXY_VERSION _T("1.0")
-#endif
+#endif // !ROXY_VERSION
 
-#endif
+#endif // !_ROXY_H_

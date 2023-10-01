@@ -1,5 +1,5 @@
-#ifndef _ROXY_WIDGET_H_
-#define _ROXY_WIDGET_H_
+#ifndef _ROXY_WINDOW_H_
+#define _ROXY_WINDOW_H_
 
 #include <tchar.h>
 #include <map>
@@ -65,4 +65,4 @@ namespace Roxy {
     Window* GetWindowPtrFromHandle(HWND hWnd);
 }
 
-#endif
+#endif // !_ROXY_WINDOW_H_

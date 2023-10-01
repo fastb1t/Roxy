@@ -1,6 +1,7 @@
 #include "../Roxy/Roxy/Application.h"
 #include "../Roxy/Roxy/Window.h"
 #include "../Roxy/Roxy/Enumerator.h"
+#include "../Roxy/Roxy/Surface.h"
 
 #include <iostream>
 
@@ -46,6 +47,13 @@ LRESULT OnPaint(HWND hWnd, WPARAM wParam, LPARAM lParam)
     PAINTSTRUCT ps;
     HDC hDC = BeginPaint(hWnd, &ps);
     FillRect(hDC, &ps.rcPaint, (HBRUSH)GetStockObject(GRAY_BRUSH));
+
+    Roxy::Surface surface;
+    surface.New(100, 100);
+    surface.DrawLine(10, 10, 90, 90);
+    surface.Draw(hDC, 10, 100);
+    surface.Delete();
+
     EndPaint(hWnd, &ps);
     return DefWindowProc(hWnd, WM_PAINT, wParam, lParam);
 }

@@ -7,6 +7,8 @@ namespace Roxy {
 
     class Surface {
         HDC m_hDC;
+        HBITMAP m_hBitmap;
+        HBITMAP m_hOldBitmap;
         size_t m_width;
         size_t m_height;
 
@@ -14,12 +16,24 @@ namespace Roxy {
         Surface();
         ~Surface();
 
-        bool New(size_t width, size_t height, HDC hParentDC = NULL);
-        void Remove();
+        bool HasImage() const {
+            return (m_hDC != NULL && m_width > 0 && m_height > 0);
+        }
 
-        bool Draw(HDC hDC, int x, int y);
+        bool New(size_t width, size_t height, HDC hParentDC = NULL);
+        void Delete();
+
+        bool Draw(HDC hDC, int x, int y) const;
+
+        void DrawLine(int x1, int y1, int x2, int y2) {
+            if (HasImage())
+            {
+                MoveToEx(m_hDC, x1, y1, NULL);
+                LineTo(m_hDC, x2, y2);
+            }
+        }
     };
 
 };
 
-#endif
+#endif // !_ROXY_SURFACE_H_

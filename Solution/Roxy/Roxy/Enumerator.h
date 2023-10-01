@@ -61,4 +61,4 @@ namespace Roxy {
 
 }
 
-#endif
+#endif // !_ROXY_ENUMERATOR_H_

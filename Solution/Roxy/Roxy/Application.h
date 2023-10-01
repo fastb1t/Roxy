@@ -14,4 +14,4 @@ namespace Roxy {
 
 }
 
-#endif
+#endif // !_ROXY_APPLICATION_H_

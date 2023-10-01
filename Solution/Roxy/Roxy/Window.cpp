@@ -1,5 +1,6 @@
 #include "Window.h"
 
+
 // [DummyWindowProcedure]:
 static LRESULT CALLBACK DummyWindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

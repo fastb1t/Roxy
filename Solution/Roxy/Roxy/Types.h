@@ -16,4 +16,4 @@ namespace Roxy {
 
 }
 
-#endif
+#endif // !_ROXY_TYPES_H_

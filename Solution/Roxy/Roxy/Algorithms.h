@@ -1,11 +1,13 @@
 #ifndef _ROXY_ALGORITHMS_H_
 #define _ROXY_ALGORITHMS_H_
 
-#include "Types.h"
-
+#include <string>
+#include <vector>
 #include <Windows.h>
 
 namespace Roxy {
+
+    std::wstring StringToWstring(const std::string& input, DWORD locale = CP_ACP);
 
     std::string GetInstancePathA(HINSTANCE hInstance);
     std::wstring GetInstancePathW(HINSTANCE hInstance);
@@ -42,7 +44,17 @@ namespace Roxy {
     std::wstring GetRandomStringW(size_t length = 6);
 
 
-    std::wstring StringToWstring(const std::string& input, DWORD locale = CP_ACP);
+    std::vector<std::string> FindFilesA(const std::string& sPath, const std::string& sExtension, bool bFullPath = true);
+    std::vector<std::wstring> FindFilesW(const std::wstring& sPath, const std::wstring& sExtension, bool bFullPath = true);
+
+    void DeleteFilesA(const std::string& sPath, const std::string& sExtension);
+    void DeleteFilesW(const std::wstring& sPath, const std::wstring& sExtension);
+
+    size_t CountFilesA(const std::string& sPath, const std::string& sExtension);
+    size_t CountFilesW(const std::wstring& sPath, const std::wstring& sExtension);
+
+    std::vector<std::string> CopyFilesA(const std::string& sPath, const std::string& sDestPath, const std::string& sOldExtension, const std::string& sNewExtension);
+    std::vector<std::wstring> CopyFilesW(const std::wstring& sPath, const std::wstring& sDestPath, const std::wstring& sOldExtension, const std::wstring& sNewExtension);
 
 #ifdef UNICODE
 #define GetInstancePath GetInstancePathW
@@ -57,6 +69,11 @@ namespace Roxy {
 #define GetTextFromEdit GetTextFromEditW
 #define TextHasNumber TextHasNumberW
 #define GetRandomString GetRandomStringW
+
+#define FindFiles FindFilesW
+#define DeleteFiles DeleteFilesW
+#define CountFiles CountFilesW
+#define CopyFiles CopyFilesW
 #else
 #define GetInstancePath GetInstancePathA
 #define BuildPath BuildPathA
@@ -70,6 +87,11 @@ namespace Roxy {
 #define GetTextFromEdit GetTextFromEditA
 #define TexHassNumber TextHasNumberA
 #define GetRandomString GetRandomStringA
+
+#define FindFiles FindFilesA
+#define DeleteFiles DeleteFilesA
+#define CountFiles CountFilesA
+#define CopyFiles CopyFilesA
 #endif
 
 }

@@ -4,6 +4,19 @@
 #include <shlwapi.h>
 
 #pragma comment(lib, "shlwapi.lib")
+#pragma comment(lib, "comctl32.lib")
+
+
+// [Roxy::StringToWstring]:
+std::wstring Roxy::StringToWstring(const std::string& input, DWORD locale)
+{
+    // Default locale = CP_ACP
+
+    std::wstring output(input.size(), 0);
+    MultiByteToWideChar(locale, 0, input.c_str(), (int)input.length(), const_cast<wchar_t*> (output.data()), input.size());
+    return output;
+}
+// [/Roxy::StringToWstring]
 
 
 // [Roxy::GetInstancePathA]:
@@ -344,18 +357,6 @@ bool Roxy::TextHasNumberW(const std::wstring sText)
 // [/Roxy::TextHasNumberW]
 
 
-// [Roxy::StringToWstring]:
-std::wstring Roxy::StringToWstring(const std::string& input, DWORD locale)
-{
-    // Default locale = CP_ACP
-
-    std::wstring output(input.size(), 0);
-    MultiByteToWideChar(locale, 0, input.c_str(), (int)input.length(), const_cast<wchar_t*> (output.data()), input.size());
-    return output;
-}
-// [/Roxy::StringToWstring]
-
-
 // [Roxy::GetRandomStringA]:
 std::string Roxy::GetRandomStringA(size_t length)
 {
@@ -388,3 +389,195 @@ std::wstring Roxy::GetRandomStringW(size_t length)
     return str;
 }
 // [/Roxy::GetRandomStringW]
+
+
+// [Roxy::FindFilesA]:
+std::vector<std::string> Roxy::FindFilesA(const std::string& sPath, const std::string& sExtension, bool bFullPath)
+{
+    std::vector<std::string> list;
+
+    WIN32_FIND_DATAA wfd;
+    memset(&wfd, 0, sizeof(WIN32_FIND_DATAA));
+
+    std::string sMask = "";
+
+    sMask += "*.";
+    sMask += sExtension;
+
+    HANDLE hFile = FindFirstFileA(BuildPathA(sPath, sMask).c_str(), &wfd);
+    if (hFile)
+    {
+        do {
+            if (bFullPath)
+            {
+                list.push_back(BuildPathA(sPath, wfd.cFileName));
+            }
+            else
+            {
+                list.push_back(wfd.cFileName);
+            }
+        } while (FindNextFileA(hFile, &wfd));
+
+        FindClose(hFile);
+    }
+
+    return list;
+}
+// [/Roxy::FindFilesA]
+
+
+// [Roxy::FindFilesW]:
+std::vector<std::wstring> Roxy::FindFilesW(const std::wstring& sPath, const std::wstring& sExtension, bool bFullPath)
+{
+    std::vector<std::wstring> list;
+
+    WIN32_FIND_DATAW wfd;
+    memset(&wfd, 0, sizeof(WIN32_FIND_DATAW));
+
+    std::wstring sMask = L"";
+
+    sMask += L"*.";
+    sMask += sExtension;
+
+    HANDLE hFile = FindFirstFileW(BuildPathW(sPath, sMask).c_str(), &wfd);
+    if (hFile)
+    {
+        do {
+            if (bFullPath)
+            {
+                list.push_back(BuildPathW(sPath, wfd.cFileName));
+            }
+            else
+            {
+                list.push_back(wfd.cFileName);
+            }
+        } while (FindNextFileW(hFile, &wfd));
+
+        FindClose(hFile);
+    }
+
+    return list;
+}
+// [/Roxy::FindFilesW]
+
+
+// [Roxy::DeleteFilesA]:
+void Roxy::DeleteFilesA(const std::string& sPath, const std::string& sExtension)
+{
+    std::vector<std::string> files = FindFilesA(sPath, sExtension);
+
+    for (std::vector<std::string>::const_iterator it = files.begin(); it != files.end(); it++)
+    {
+        DeleteFileA((*it).c_str());
+    }
+}
+// [/Roxy::DeleteFilesA]
+
+
+// [Roxy::DeleteFilesW]:
+void Roxy::DeleteFilesW(const std::wstring& sPath, const std::wstring& sExtension)
+{
+    std::vector<std::wstring> files = FindFilesW(sPath, sExtension);
+
+    for (std::vector<std::wstring>::const_iterator it = files.begin(); it != files.end(); it++)
+    {
+        DeleteFileW((*it).c_str());
+    }
+}
+// [/Roxy::DeleteFilesW]
+
+
+// [Roxy::CountFilesA]:
+size_t Roxy::CountFilesA(const std::string& sPath, const std::string& sExtension)
+{
+    return FindFilesA(sPath, sExtension).size();
+}
+// [/Roxy::CountFilesA]
+
+
+// [Roxy::CountFilesW]:
+size_t Roxy::CountFilesW(const std::wstring& sPath, const std::wstring& sExtension)
+{
+    return FindFilesW(sPath, sExtension).size();
+}
+// [/Roxy::CountFilesW]
+
+
+// [Roxy::CopyFilesA]:
+std::vector<std::string> Roxy::CopyFilesA(const std::string& sPath, const std::string& sDestPath, const std::string& sOldExtension, const std::string& sNewExtension)
+{
+    std::vector<std::string> list;
+
+    WIN32_FIND_DATAA wfd;
+    memset(&wfd, 0, sizeof(WIN32_FIND_DATAA));
+
+    HANDLE hFile = FindFirstFileA(BuildPathA(sPath, "*." + sOldExtension).c_str(), &wfd);
+    if (hFile)
+    {
+        std::string sFileName;
+
+        do {
+            sFileName = wfd.cFileName;
+
+            if (sFileName.length() > max(sOldExtension.length(), sNewExtension.length()))
+            {
+                if (GetFileExtensionA(sFileName) == std::string(".") + sOldExtension)
+                {
+                    sFileName.erase(sFileName.begin() + sFileName.length() - sOldExtension.length(), sFileName.end());
+                    sFileName += sNewExtension;
+
+                    DeleteFileA(BuildPathA(sDestPath, sFileName).c_str());
+
+                    CopyFileA(BuildPathA(sPath, wfd.cFileName).c_str(), BuildPathA(sDestPath, sFileName).c_str(), FALSE);
+
+                    list.push_back(BuildPathA(sDestPath, sFileName));
+                }
+            }
+        } while (FindNextFileA(hFile, &wfd));
+
+        FindClose(hFile);
+    }
+
+    return list;
+}
+// [/Roxy::CopyFilesA]
+
+
+// [Roxy::CopyFilesW]:
+std::vector<std::wstring> Roxy::CopyFilesW(const std::wstring& sPath, const std::wstring& sDestPath, const std::wstring& sOldExtension, const std::wstring& sNewExtension)
+{
+    std::vector<std::wstring> list;
+
+    WIN32_FIND_DATAW wfd;
+    memset(&wfd, 0, sizeof(WIN32_FIND_DATAW));
+
+    HANDLE hFile = FindFirstFileW(BuildPathW(sPath, L"*." + sOldExtension).c_str(), &wfd);
+    if (hFile)
+    {
+        std::wstring sFileName;
+
+        do {
+            sFileName = wfd.cFileName;
+
+            if (sFileName.length() > max(sOldExtension.length(), sNewExtension.length()))
+            {
+                if (GetFileExtensionW(sFileName) == std::wstring(L".") + sOldExtension)
+                {
+                    sFileName.erase(sFileName.begin() + sFileName.length() - sOldExtension.length(), sFileName.end());
+                    sFileName += sNewExtension;
+
+                    DeleteFileW(BuildPathW(sDestPath, sFileName).c_str());
+
+                    CopyFileW(BuildPathW(sPath, wfd.cFileName).c_str(), BuildPathW(sDestPath, sFileName).c_str(), FALSE);
+
+                    list.push_back(BuildPathW(sDestPath, sFileName));
+                }
+            }
+        } while (FindNextFileW(hFile, &wfd));
+
+        FindClose(hFile);
+    }
+
+    return list;
+}
+// [/Roxy::CopyFilesW]

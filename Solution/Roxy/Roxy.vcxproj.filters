@@ -27,13 +27,13 @@
     <ClCompile Include="Roxy\Window.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Tabs.cpp">
+    <ClCompile Include="Roxy\Roxy.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Roxy.cpp">
+    <ClCompile Include="Roxy\BitMap.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="BitMap.cpp">
+    <ClCompile Include="Roxy\Tabs.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,13 +56,13 @@
     <ClInclude Include="Roxy\Window.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Tabs.h">
+    <ClInclude Include="Roxy\Roxy.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Roxy.h">
+    <ClInclude Include="Roxy\BitMap.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="BitMap.h">
+    <ClInclude Include="Roxy\Tabs.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

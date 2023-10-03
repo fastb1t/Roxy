@@ -5,6 +5,7 @@
 #include <map>
 #include <windows.h>
 
+#include "Types.h"
 #include "Algorithms.h"
 
 namespace Roxy {

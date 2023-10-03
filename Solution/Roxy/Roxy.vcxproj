@@ -147,24 +147,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BitMap.cpp" />
-    <ClCompile Include="Roxy.cpp" />
     <ClCompile Include="Roxy\Algorithms.cpp" />
     <ClCompile Include="Roxy\Application.cpp" />
+    <ClCompile Include="Roxy\BitMap.cpp" />
+    <ClCompile Include="Roxy\Roxy.cpp" />
     <ClCompile Include="Roxy\Surface.cpp" />
+    <ClCompile Include="Roxy\Tabs.cpp" />
     <ClCompile Include="Roxy\Window.cpp" />
-    <ClCompile Include="Tabs.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BitMap.h" />
-    <ClInclude Include="Roxy.h" />
     <ClInclude Include="Roxy\Algorithms.h" />
     <ClInclude Include="Roxy\Application.h" />
+    <ClInclude Include="Roxy\BitMap.h" />
     <ClInclude Include="Roxy\Enumerator.h" />
+    <ClInclude Include="Roxy\Roxy.h" />
     <ClInclude Include="Roxy\Surface.h" />
+    <ClInclude Include="Roxy\Tabs.h" />
     <ClInclude Include="Roxy\Types.h" />
     <ClInclude Include="Roxy\Window.h" />
-    <ClInclude Include="Tabs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

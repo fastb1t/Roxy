@@ -200,15 +200,31 @@ bool Roxy::DirExistsW(const std::wstring& sDirName)
 // [Roxy::GetFileNameFromPathA]:
 std::string Roxy::GetFileNameFromPathA(const std::string& sPath)
 {
-
+    return "";
 }
 // [/Roxy::GetFileNameFromPathA]
+
+
+// [Roxy::GetFileNameFromPathW]:
+std::wstring Roxy::GetFileNameFromPathW(const std::wstring& sPath)
+{
+    return L"";
+}
+// [/Roxy::GetFileNameFromPathW]
+
+
+// [Roxy::RemoveFileNameFromPathA]:
+std::string Roxy::RemoveFileNameFromPathA(const std::string& sPath)
+{
+    return "";
+}
+// [/Roxy::RemoveFileNameFromPathA]
 
 
 // [Roxy::RemoveFileNameFromPathW]:
 std::wstring Roxy::RemoveFileNameFromPathW(const std::wstring& sPath)
 {
-
+    return L"";
 }
 // [/Roxy::RemoveFileNameFromPathW]
 
@@ -216,15 +232,31 @@ std::wstring Roxy::RemoveFileNameFromPathW(const std::wstring& sPath)
 // [Roxy::GetPathFromPathA]:
 std::string Roxy::GetPathFromPathA(const std::string& sPath)
 {
-
+    return "";
 }
 // [/Roxy::GetPathFromPathA]
+
+
+// [Roxy::GetPathFromPathW]:
+std::wstring Roxy::GetPathFromPathW(const std::wstring& sPath)
+{
+    return L"";
+}
+// [/Roxy::GetPathFromPathW]
+
+
+// [Roxy::RemovePathFromPathA]:
+std::string Roxy::RemovePathFromPathA(const std::string& sPath)
+{
+    return "";
+}
+// [/Roxy::RemovePathFromPathA]
 
 
 // [Roxy::RemovePathFromPathW]:
 std::wstring Roxy::RemovePathFromPathW(const std::wstring& sPath)
 {
-
+    return L"";
 }
 // [/Roxy::RemovePathFromPathW]
 
@@ -232,8 +264,22 @@ std::wstring Roxy::RemovePathFromPathW(const std::wstring& sPath)
 // [Roxy::GetFileExtensionA]:
 std::string Roxy::GetFileExtensionA(const std::string& sFileName)
 {
-    char* lpszStr = PathFindExtensionA(sFileName.c_str());
-    return (lpszStr == nullptr ? "" : lpszStr);
+    //char* lpszStr = PathFindExtensionA(sFileName.c_str());
+    //return (lpszStr == nullptr ? "" : lpszStr);
+
+    std::string sFile, sExtension;
+
+    std::string sResult = "";
+
+    size_t dotIndex = sFileName.find_last_of(".");
+    if (dotIndex != std::string::npos)
+    {
+        sFile = sFileName.substr(0, dotIndex);
+        sExtension = sFileName.substr(dotIndex + 1);
+    }
+
+    // якщо в назв≥ файлу немаЇ крапки, повертаЇм порожн≥й р€док, щоб вказати в≥дсутн≥сть розширенн€.
+    return "";
 }
 // [/Roxy::GetFileExtensionA]
 
@@ -241,8 +287,10 @@ std::string Roxy::GetFileExtensionA(const std::string& sFileName)
 // [Roxy::GetFileExtensionW]:
 std::wstring Roxy::GetFileExtensionW(const std::wstring& sFileName)
 {
-    wchar_t* lpszStr = PathFindExtensionW(sFileName.c_str());
-    return (lpszStr == nullptr ? L"" : lpszStr);
+    //wchar_t* lpszStr = PathFindExtensionW(sFileName.c_str());
+    //return (lpszStr == nullptr ? L"" : lpszStr);
+
+    return L"";
 }
 // [/Roxy::GetFileExtensionW]
 
@@ -250,7 +298,22 @@ std::wstring Roxy::GetFileExtensionW(const std::wstring& sFileName)
 // [Roxy::RemoveFileExtensionA]:
 std::string Roxy::RemoveFileExtensionA(const std::string& sFileName)
 {
+    std::string sFile, sExtension;
 
+    std::string sResult = "";
+
+    size_t dotIndex = sFileName.find_last_of(".");
+    if (dotIndex != std::string::npos)
+    {
+        sResult = sFileName.substr(0, dotIndex);
+
+        if (sResult.find('\\') != std::string::npos || sResult.find('/') != std::string::npos);
+
+        return sResult;
+    }
+
+    // якщо в назв≥ файлу немаЇ крапки, повертаЇм ориг≥нальну назву файлу.
+    return "";
 }
 // [/Roxy::RemoveFileExtensionA]
 
@@ -258,7 +321,7 @@ std::string Roxy::RemoveFileExtensionA(const std::string& sFileName)
 // [Roxy::RemoveFileExtensionW]:
 std::wstring Roxy::RemoveFileExtensionW(const std::wstring& sFileName)
 {
-
+    return L"";
 }
 // [/Roxy::RemoveFileExtensionW]
 

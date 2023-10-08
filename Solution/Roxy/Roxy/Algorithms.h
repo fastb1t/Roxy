@@ -22,9 +22,15 @@ namespace Roxy {
     bool DirExistsW(const std::wstring& sDirName);
 
     std::string GetFileNameFromPathA(const std::string& sPath);
+    std::wstring GetFileNameFromPathW(const std::wstring& sPath);
+
+    std::string RemoveFileNameFromPathA(const std::string& sPath);
     std::wstring RemoveFileNameFromPathW(const std::wstring& sPath);
 
     std::string GetPathFromPathA(const std::string& sPath);
+    std::wstring GetPathFromPathW(const std::wstring& sPath);
+
+    std::string RemovePathFromPathA(const std::string& sPath);
     std::wstring RemovePathFromPathW(const std::wstring& sPath);
 
     std::string GetFileExtensionA(const std::string& sFileName);
@@ -62,7 +68,9 @@ namespace Roxy {
 #define FileExists FileExistsW
 #define DirExists DirExistsW
 #define GetFileNameFromPath GetFileNameFromPathW
+#define RemoveFileNameFromPath RemoveFileNameFromPathW
 #define GetPathFromPath GetPathFromPathW
+#define RemovePathFromPath RemovePathFromPathW
 #define GetFileExtension GetFileExtensionW
 #define RemoveFileExtension RemoveFileExtensionW
 
@@ -80,7 +88,9 @@ namespace Roxy {
 #define FileExists FileExistsA
 #define DirExists DirExistsA
 #define GetFileNameFromPath GetFileNameFromPathA
+#define RemoveFileNameFromPath RemoveFileNameFromPathA
 #define GetPathFromPath GetPathFromPathA
+#define RemovePathFromPath RemovePathFromPathA
 #define GetFileExtension GetFileExtensionA
 #define RemoveFileExtension RemoveFileExtensionA
 

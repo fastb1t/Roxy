@@ -1,8 +1,8 @@
 #include "BitMap.h"
 
 
-// [BitMap::BitMap]:
-BitMap::BitMap() :
+// [Roxy::BitMap::BitMap]:
+Roxy::BitMap::BitMap() :
     hBitmap(NULL),
     hOldBitmap(NULL),
     hDC(NULL),
@@ -11,19 +11,19 @@ BitMap::BitMap() :
 {
 
 }
-// [/BitMap::BitMap]
+// [/Roxy::BitMap::BitMap]
 
 
-// [BitMap::~BitMap]:
-BitMap::~BitMap()
+// [Roxy::BitMap::~BitMap]:
+Roxy::BitMap::~BitMap()
 {
     Clear();
 }
-// [/BitMap::~BitMap]
+// [/Roxy::BitMap::~BitMap]
 
 
-// [BitMap::Clear]:
-void BitMap::Clear()
+// [Roxy::BitMap::Clear]:
+void Roxy::BitMap::Clear()
 {
     EndPaint();
 
@@ -33,11 +33,11 @@ void BitMap::Clear()
         hBitmap = NULL;
     }
 }
-// [/BitMap::Clear]
+// [/Roxy::BitMap::Clear]
 
 
-// [BitMap::BeginPaint]:
-bool BitMap::BeginPaint()
+// [Roxy::BitMap::BeginPaint]:
+bool Roxy::BitMap::BeginPaint()
 {
     if (bPaintInit)
     {
@@ -69,11 +69,11 @@ bool BitMap::BeginPaint()
     }
     return false;
 }
-// [/BitMap::BeginPaint]
+// [/Roxy::BitMap::BeginPaint]
 
 
-// [BitMap::EndPaint]:
-bool BitMap::EndPaint()
+// [Roxy::BitMap::EndPaint]:
+bool Roxy::BitMap::EndPaint()
 {
     if (!bPaintInit)
         return true;
@@ -90,45 +90,45 @@ bool BitMap::EndPaint()
     bPaintInit = false;
     return true;
 }
-// [BitMap::EndPaint]
+// [Roxy::BitMap::EndPaint]
 
 
-// [BitMap::SetBitmapHandle]:
-bool BitMap::SetBitmapHandle(HBITMAP hBitmap)
+// [Roxy::BitMap::SetBitmapHandle]:
+bool Roxy::BitMap::SetBitmapHandle(HBITMAP hBitmap)
 {
     if (hBitmap)
         this->hBitmap = hBitmap;
     return hBitmap != NULL;
 }
-// [/BitMap::SetBitmapHandle]
+// [/Roxy::BitMap::SetBitmapHandle]
 
 
-// [BitMap::GetBitmapHandle]:
-HBITMAP BitMap::GetBitmapHandle() const
+// [Roxy::BitMap::GetBitmapHandle]:
+HBITMAP Roxy::BitMap::GetBitmapHandle() const
 {
     return hBitmap;
 }
-// [/BitMap::GetBitmapHandle]
+// [/Roxy::BitMap::GetBitmapHandle]
 
 
-// [BitMap::GetDCHandle]:
-HDC BitMap::GetDCHandle() const
+// [Roxy::BitMap::GetDCHandle]:
+HDC Roxy::BitMap::GetDCHandle() const
 {
     return HasImage() ? hDC : NULL;
 }
-// [/BitMap::GetDCHandle]
+// [/Roxy::BitMap::GetDCHandle]
 
 
-// [BitMap::HasImage]:
-bool BitMap::HasImage() const
+// [Roxy::BitMap::HasImage]:
+bool Roxy::BitMap::HasImage() const
 {
     return hBitmap != NULL;
 }
-// [/BitMap::HasImage]
+// [/Roxy::BitMap::HasImage]
 
 
-// [BitMap::CreateNewBitmap]:
-bool BitMap::CreateNewBitmap(int iWidth, int iHeight)
+// [Roxy::BitMap::CreateNewBitmap]:
+bool Roxy::BitMap::CreateNewBitmap(int iWidth, int iHeight)
 {
     if (iWidth <= 0 || iHeight <= 0)
     {
@@ -180,11 +180,11 @@ bool BitMap::CreateNewBitmap(int iWidth, int iHeight)
     }
     return false;
 }
-// [/BitMap::CreateNewBitmap]
+// [/Roxy::BitMap::CreateNewBitmap]
 
 
-// [BitMap::ReplaceColors]:
-bool BitMap::ReplaceColors(COLORREF clrOldColor, COLORREF clrNewColor)
+// [Roxy::BitMap::ReplaceColors]:
+bool Roxy::BitMap::ReplaceColors(COLORREF clrOldColor, COLORREF clrNewColor)
 {
     if (!HasImage())
         return false;
@@ -248,11 +248,11 @@ bool BitMap::ReplaceColors(COLORREF clrOldColor, COLORREF clrNewColor)
     EndPaint();
     return false;
 }
-// [/BitMap::ReplaceColors]
+// [/Roxy::BitMap::ReplaceColors]
 
 
-// [BitMap::MakeScreenShot]:
-bool BitMap::MakeScreenShot(HWND hWnd, RECT* rect)
+// [Roxy::BitMap::MakeScreenShot]:
+bool Roxy::BitMap::MakeScreenShot(HWND hWnd, RECT* rect)
 {
     Clear();
 
@@ -337,11 +337,11 @@ bool BitMap::MakeScreenShot(HWND hWnd, RECT* rect)
     }
     return false;
 }
-// [/BitMap::MakeScreenShot]
+// [/Roxy::BitMap::MakeScreenShot]
 
 
-// [BitMap::ScaleImage]:
-bool BitMap::ScaleImage(int iWidth, int iHeight)
+// [Roxy::BitMap::ScaleImage]:
+bool Roxy::BitMap::ScaleImage(int iWidth, int iHeight)
 {
     if (iWidth <= 0 || iHeight <= 0)
         return false;
@@ -410,11 +410,11 @@ bool BitMap::ScaleImage(int iWidth, int iHeight)
     EndPaint();
     return false;
 }
-// [/BitMap::ScaleImage]
+// [/Roxy::BitMap::ScaleImage]
 
 
-// [BitMap::Draw]:
-bool BitMap::Draw(HDC hDC, int x, int y)
+// [Roxy::BitMap::Draw]:
+bool Roxy::BitMap::Draw(HDC hDC, int x, int y)
 {
     if (!HasImage())
         return false;
@@ -441,11 +441,11 @@ bool BitMap::Draw(HDC hDC, int x, int y)
     }
     return false;
 }
-// [/BitMap::Draw]
+// [/Roxy::BitMap::Draw]
 
 
-// [BitMap::DrawScalable]:
-bool BitMap::DrawScalable(HDC hDC, int x, int y, int iMaxWidth, int iMaxHeight)
+// [Roxy::BitMap::DrawScalable]:
+bool Roxy::BitMap::DrawScalable(HDC hDC, int x, int y, int iMaxWidth, int iMaxHeight)
 {
     BITMAP bm = { 0 };
     if (!GetObject(hBitmap, sizeof(BITMAP), &bm))
@@ -473,11 +473,11 @@ bool BitMap::DrawScalable(HDC hDC, int x, int y, int iMaxWidth, int iMaxHeight)
     EndPaint();
     return true;
 }
-// [/BitMap::DrawScalable]
+// [/Roxy::BitMap::DrawScalable]
 
 
-// [BitMap::GetOriginalSize]:
-SIZE BitMap::GetOriginalSize() const
+// [Roxy::BitMap::GetOriginalSize]:
+SIZE Roxy::BitMap::GetOriginalSize() const
 {
     BITMAP bm = { 0 };
     if (GetObject(hBitmap, sizeof(BITMAP), &bm))
@@ -486,11 +486,11 @@ SIZE BitMap::GetOriginalSize() const
     }
     return { 0, 0 };
 }
-// [/BitMap::GetOriginalSize]
+// [/Roxy::BitMap::GetOriginalSize]
 
 
-// [BitMap::GetScalableSize]:
-SIZE BitMap::GetScalableSize(int iMaxWidth, int iMaxHeight)
+// [Roxy::BitMap::GetScalableSize]:
+SIZE Roxy::BitMap::GetScalableSize(int iMaxWidth, int iMaxHeight)
 {
     BITMAP bm = { 0 };
     if (!GetObject(hBitmap, sizeof(BITMAP), &bm))
@@ -540,20 +540,20 @@ SIZE BitMap::GetScalableSize(int iMaxWidth, int iMaxHeight)
     }
     return ret;
 }
-// [/BitMap::GetScalableSize]
+// [/Roxy::BitMap::GetScalableSize]
 
 
-// [BitMap::SetPrivateVar]:
-void BitMap::SetPrivateVar(LPVOID lpVar)
+// [Roxy::BitMap::SetPrivateVar]:
+void Roxy::BitMap::SetPrivateVar(LPVOID lpVar)
 {
     lpPrivateVar = lpVar;
 }
-// [/BitMap::SetPrivateVar]
+// [/Roxy::BitMap::SetPrivateVar]
 
 
-// [BitMap::GetPrivateVar]:
-LPVOID BitMap::GetPrivateVar()
+// [Roxy::BitMap::GetPrivateVar]:
+LPVOID Roxy::BitMap::GetPrivateVar()
 {
     return lpPrivateVar;
 }
-// [/BitMap::GetPrivateVar]
+// [/Roxy::BitMap::GetPrivateVar]

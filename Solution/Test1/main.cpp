@@ -2,6 +2,7 @@
 #include "../Roxy/Roxy/Window.h"
 #include "../Roxy/Roxy/Enumerator.h"
 #include "../Roxy/Roxy/Surface.h"
+#include "../Roxy/Roxy/Tabs.h"
 
 #include <iostream>
 
@@ -88,6 +89,43 @@ int main(int argc, char* argv[])
 
     window2.create();
     window2.show();
+
+
+    Roxy::Tabs_Init(GetModuleHandle(NULL));
+
+
+    Roxy::T_VISUALDATA vd;
+    memset(&vd, 0, sizeof(Roxy::T_VISUALDATA));
+
+    vd.clrManagerBackgroundColor = RGB(210, 210, 210);
+    vd.clrActiveTabBackgroundColor = RGB(180, 180, 180);
+    vd.clrActiveTabTextColor = RGB(0, 0, 0);
+    vd.clrInActiveTabBackgroundColor = RGB(150, 150, 150);
+    vd.clrInActiveTabTextColor = RGB(100, 100, 100);
+
+    Roxy::TabsManager* pTabsManager = new (std::nothrow) Roxy::TabsManager(&vd, true);
+    if (pTabsManager != nullptr)
+    {
+        pTabsManager->Create(0, 00, 200, 200, window2.getWindowHandle());
+
+        pTabsManager->AddTab("#1",
+            [](HWND hWnd, LPCREATESTRUCT lpcs, size_t TabID)
+            {
+            }
+        );
+
+        pTabsManager->SetTabPaintCallback(0,
+            [](HWND hWnd, HDC hDC, size_t TabID)
+            {
+                char szText[1024] = { 0 };
+
+                lstrcpy(szText, _T("Количество дней пробного периода"));
+                TextOut(hDC, 20, 20, szText, lstrlen(szText));
+            }
+        );
+
+        pTabsManager->Show();
+    }
 
     return app.loop();
 }

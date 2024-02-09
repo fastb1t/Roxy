@@ -95,7 +95,7 @@ namespace Roxy {
 #define RemoveFileExtension RemoveFileExtensionA
 
 #define GetTextFromEdit GetTextFromEditA
-#define TexHassNumber TextHasNumberA
+#define TexHasNumber TextHasNumberA
 #define GetRandomString GetRandomStringA
 
 #define FindFiles FindFilesA

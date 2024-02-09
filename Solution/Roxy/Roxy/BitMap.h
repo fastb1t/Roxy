@@ -9,41 +9,45 @@
 
 #include <windows.h>
 
-class BitMap {
-    HBITMAP hBitmap;
-    HBITMAP hOldBitmap;
-    HDC hDC;
-    bool bPaintInit;
+namespace Roxy {
 
-    LPVOID lpPrivateVar;
+    class BitMap {
+        HBITMAP hBitmap;
+        HBITMAP hOldBitmap;
+        HDC hDC;
+        bool bPaintInit;
 
-public:
-    BitMap();
-    ~BitMap();
+        LPVOID lpPrivateVar;
 
-    void Clear();
+    public:
+        BitMap();
+        ~BitMap();
 
-    bool BeginPaint();
-    bool EndPaint();
+        void Clear();
 
-    bool SetBitmapHandle(HBITMAP hBitmap);
-    HBITMAP GetBitmapHandle() const;
-    HDC GetDCHandle() const;
-    bool HasImage() const;
+        bool BeginPaint();
+        bool EndPaint();
 
-    bool CreateNewBitmap(int iWidth, int iHeight);
-    bool ReplaceColors(COLORREF clrOldColor, COLORREF clrNewColor);
-    bool MakeScreenShot(HWND hWnd, RECT* rect = nullptr);
-    bool ScaleImage(int iWidth, int iHeight);
+        bool SetBitmapHandle(HBITMAP hBitmap);
+        HBITMAP GetBitmapHandle() const;
+        HDC GetDCHandle() const;
+        bool HasImage() const;
 
-    bool Draw(HDC hDC, int x, int y);
-    bool DrawScalable(HDC hDC, int x, int y, int iMaxWidth, int iMaxHeight);
+        bool CreateNewBitmap(int iWidth, int iHeight);
+        bool ReplaceColors(COLORREF clrOldColor, COLORREF clrNewColor);
+        bool MakeScreenShot(HWND hWnd, RECT* rect = nullptr);
+        bool ScaleImage(int iWidth, int iHeight);
 
-    SIZE GetOriginalSize() const;
-    SIZE GetScalableSize(int iMaxWidth, int iMaxHeight);
+        bool Draw(HDC hDC, int x, int y);
+        bool DrawScalable(HDC hDC, int x, int y, int iMaxWidth, int iMaxHeight);
 
-    void SetPrivateVar(LPVOID lpVar);
-    LPVOID GetPrivateVar();
-};
+        SIZE GetOriginalSize() const;
+        SIZE GetScalableSize(int iMaxWidth, int iMaxHeight);
+
+        void SetPrivateVar(LPVOID lpVar);
+        LPVOID GetPrivateVar();
+    };
+
+}
 
 #endif // !_ROXY_BITMAP_H_

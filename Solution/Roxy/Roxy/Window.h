@@ -9,6 +9,7 @@
 #include "Algorithms.h"
 
 namespace Roxy {
+
     class Window;
 
     typedef LRESULT(*MSG_PROC)(HWND, WPARAM, LPARAM);
@@ -39,6 +40,10 @@ namespace Roxy {
         void setInstanceHandle(HINSTANCE hInstance);
         void setWindowHandle(HWND hWnd);
 
+        HWND getWindowHandle() const {
+            return m_hWnd;
+        }
+
         LRESULT WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
         void Process_ButtonPressed(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
         void addMsgProc(UINT, MSG_PROC);
@@ -64,6 +69,7 @@ namespace Roxy {
     };
 
     Window* GetWindowPtrFromHandle(HWND hWnd);
+
 }
 
 #endif // !_ROXY_WINDOW_H_
